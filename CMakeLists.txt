@@ -63,6 +63,8 @@ endif()
 
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
 
+set(Qt_LIBS Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Gui)
+
 add_definitions(-DQT_NO_KEYWORDS)
 
 add_definitions(-DNEDRYSOFT_LIBRARY_MACHELPER_EXPORT)
@@ -95,11 +97,6 @@ add_library(${PROJECT_NAME} SHARED
 )
 
 target_link_libraries(${PROJECT_NAME} ${Qt_LIBS})
-
-set(Qt_LIBS
-        Qt${QT_VERSION_MAJOR}::Core
-        Qt${QT_VERSION_MAJOR}::Widgets
-        Qt${QT_VERSION_MAJOR}::Gui)
 
 if(DEFINED NEDRYSOFT_MACHELPER_LIBRARY_DIR)
     set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${NEDRYSOFT_MACHELPER_LIBRARY_DIR}")

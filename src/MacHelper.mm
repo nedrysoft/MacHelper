@@ -26,9 +26,9 @@
 
 #import <AppKit/AppKit.h>
 
-constexpr auto bitsPerPixel = 8;
-constexpr auto samplesPerPixel = 4;
-constexpr auto systemFontSize = 12;
+constexpr auto BitsPerPixel = 8;
+constexpr auto SamplesPerPixel = 4;
+constexpr auto SystemFontSize = 12;
 
 void Nedrysoft::MacHelper::enablePreferencesToolbar(QWidget *window) {
     if (@available(macOS 11, *)) {
@@ -61,8 +61,8 @@ auto Nedrysoft::MacHelper::standardImage(StandardImage::StandardImageName standa
             initWithBitmapDataPlanes: nullptr
                           pixelsWide: imageSize.width()
                           pixelsHigh: imageSize.height()
-                       bitsPerSample: bitsPerPixel
-                     samplesPerPixel: samplesPerPixel
+                       bitsPerSample: BitsPerPixel
+                     samplesPerPixel: SamplesPerPixel
                             hasAlpha: YES
                             isPlanar: NO
                       colorSpaceName: NSDeviceRGBColorSpace
@@ -188,13 +188,13 @@ auto Nedrysoft::MacHelper::imageForFile(const QString &filename, std::shared_ptr
 }
 
 auto Nedrysoft::MacHelper::systemFontName() -> QString {
-    auto font = [NSFont systemFontOfSize: systemFontSize];
+    auto font = [NSFont systemFontOfSize: SystemFontSize];
 
     return QString([[font fontName] cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 }
 
 auto Nedrysoft::MacHelper::fontFilename(const QString& fontName) ->QString {
-    auto font = [NSFont fontWithName: [NSString stringWithCString: fontName.toLatin1().data() encoding: [NSString defaultCStringEncoding]] size: systemFontSize];
+    auto font = [NSFont fontWithName: [NSString stringWithCString: fontName.toLatin1().data() encoding: [NSString defaultCStringEncoding]] size: SystemFontSize];
 
     if (font) {
         auto fontRef = CTFontDescriptorCreateWithNameAndSize(reinterpret_cast<CFStringRef>([font fontName]), [font pointSize]);

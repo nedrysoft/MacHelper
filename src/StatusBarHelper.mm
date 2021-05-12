@@ -19,17 +19,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MacHelper/StatusBarHelper.h"
+#include "StatusbarHelper.h"
 
-constexpr auto StatusBarIconSize = 20;
+constexpr auto StatusbarIconSize = 20;
 
-@implementation StatusBarHelper
+@implementation StatusbarHelper
 
 - (void) statusBarItemClicked:(NSStatusBarButton *) sender {
-    Q_EMIT m_menuBarIcon->clicked();
+    Q_EMIT m_menubarIcon->clicked();
 }
 
-- (id) initWithMenuBarIcon:(Nedrysoft::MacHelper::MenuBarIcon *) menuBarIcon {
+- (id) initWithMenuBarIcon:(Nedrysoft::MacHelper::MacMenubarIcon *) menubarIcon {
     self = [super init];
 
     if (!self) {
@@ -38,22 +38,22 @@ constexpr auto StatusBarIconSize = 20;
 
     NSStatusBar *systemStatusBar = [NSStatusBar systemStatusBar];
 
-    m_menuBarIcon = menuBarIcon;
+    m_menubarIcon = menubarIcon;
 
-    m_statusBarItem = [systemStatusBar statusItemWithLength:NSSquareStatusItemLength];
+    m_statusbarItem = [systemStatusBar statusItemWithLength:NSSquareStatusItemLength];
 
     CGImageRef imageRef;
 
-    if (menuBarIcon->pixmap().width() != StatusBarIconSize) {
-        imageRef = menuBarIcon->pixmap().scaled(StatusBarIconSize, StatusBarIconSize).toImage().toCGImage();
+    if (menubarIcon->pixmap().width() != StatusbarIconSize) {
+        imageRef = menubarIcon->pixmap().scaled(StatusbarIconSize, StatusbarIconSize).toImage().toCGImage();
     } else {
-        imageRef = menuBarIcon->pixmap().toImage().toCGImage();
+        imageRef = menubarIcon->pixmap().toImage().toCGImage();
     }
 
-    m_button = [m_statusBarItem button];
+    m_button = [m_statusbarItem button];
 
     NSImage *nativeImage = [[NSImage alloc] initWithCGImage:imageRef
-                                                       size:NSMakeSize(StatusBarIconSize, StatusBarIconSize)];
+                                                       size:NSMakeSize(StatusbarIconSize, StatusbarIconSize)];
 
     [m_button setImage:nativeImage];
 
@@ -76,14 +76,14 @@ constexpr auto StatusBarIconSize = 20;
 - (void) updatePixmap {
     CGImageRef imageRef;
 
-    if (m_menuBarIcon->pixmap().width() != StatusBarIconSize) {
-        imageRef = m_menuBarIcon->pixmap().scaled(StatusBarIconSize, StatusBarIconSize).toImage().toCGImage();
+    if (m_menubarIcon->pixmap().width() != StatusbarIconSize) {
+        imageRef = m_menubarIcon->pixmap().scaled(StatusbarIconSize, StatusbarIconSize).toImage().toCGImage();
     } else {
-        imageRef = m_menuBarIcon->pixmap().toImage().toCGImage();
+        imageRef = m_menubarIcon->pixmap().toImage().toCGImage();
     }
 
     NSImage *nativeImage = [[NSImage alloc] initWithCGImage:imageRef
-                                                       size:NSMakeSize(StatusBarIconSize, StatusBarIconSize)];
+                                                       size:NSMakeSize(StatusbarIconSize, StatusbarIconSize)];
 
     [m_button setImage:nativeImage];
 

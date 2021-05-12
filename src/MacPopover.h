@@ -19,8 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_POPOVER_H
-#define NEDRYSOFT_POPOVER_H
+#ifndef NEDRYSOFT_MACPOPOVER_H
+#define NEDRYSOFT_MACPOPOVER_H
 
 #include <QObject>
 #include <QPixmap>
@@ -28,12 +28,12 @@
 Q_FORWARD_DECLARE_OBJC_CLASS(PopoverHelper);
 
 namespace Nedrysoft { namespace MacHelper {
-    class MenuBarIcon;
+    class MacMenubarIcon;
 
     /**
      * @brief       Displays a native macOS popover window.
      */
-    class Popover :
+    class MacPopover :
             public QObject {
 
         private:
@@ -54,16 +54,16 @@ namespace Nedrysoft { namespace MacHelper {
              * @notes       The popover becomes the owner of the contentWidget, you must not delete it as it is
              *              the responsibility of the popover to manage the widget.
              *
-             * @param[in]   menuBarIcon the menu bar icon that the popover is relative to.
+             * @param[in]   menubarIcon the menu bar icon that the popover is relative to.
              * @param[in]   contentWidget the content to display in the popover.
              * @param[in]   size the size of the popover.
              * @param[in]   edge the edge that the popover should be attached to.
              */
             auto show(
-                    Nedrysoft::MacHelper::MenuBarIcon *menuBarIcon,
+                    Nedrysoft::MacHelper::MacMenubarIcon *menubarIcon,
                     QWidget *contentWidget,
                     QSize size,
-                    Nedrysoft::MacHelper::Popover::Edge edge) -> void;
+                    Nedrysoft::MacHelper::MacPopover::Edge edge) -> void;
 
             /**
              * @brief       Shows the popup relative to a widget.
@@ -80,7 +80,7 @@ namespace Nedrysoft { namespace MacHelper {
                     QWidget *widget,
                     QWidget *contentWidget,
                     QSize size,
-                    Nedrysoft::MacHelper::Popover::Edge edge) -> void;
+                    Nedrysoft::MacHelper::MacPopover::Edge edge) -> void;
 
         public:
             /**
@@ -93,4 +93,4 @@ namespace Nedrysoft { namespace MacHelper {
     };
 }}
 
-#endif // NEDRYSOFT_POPOVER_H
+#endif // NEDRYSOFT_MACPOPOVER_H

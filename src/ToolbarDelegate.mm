@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#import "MacHelper/ToolbarDelegate.h"
+#import "ToolbarDelegate.h"
 
-#include "MacHelper/MacToolbarItem.h"
+#include "MacToolbarItem.h"
 
 constexpr auto IconSize = 256;
 

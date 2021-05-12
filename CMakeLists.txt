@@ -72,25 +72,25 @@ add_definitions(-DNEDRYSOFT_LIBRARY_MACHELPER_EXPORT)
 project(MacHelper)
 
 set(library_SOURCES
-    includes/MacHelper/MacHelper.h
-    includes/MacHelper/MenuBarIcon.h
-    includes/MacHelper/Popover.h
-    includes/MacHelper/PopoverHelper.h
-    includes/MacHelper/StatusBarHelper.h
-    includes/MacHelper/MacToolbar.h
-    includes/MacHelper/MacToolbarItem.h
-    includes/MacHelper/ToolbarDelegate.h
+    src/MacHelper.h
     src/MacHelper.mm
-    src/MenuBarIcon.mm
-    src/Popover.mm
-    src/PopoverHelper.mm
-    src/StatusBarHelper.mm
+    src/MacMenubarIcon.h
+    src/MacMenubarIcon.mm
+    src/MacPopover.h
+    src/MacPopover.mm
+    src/MacToolbar.h
     src/MacToolbar.mm
+    src/MacToolbarItem.h
     src/MacToolbarItem.mm
+    src/PopoverHelper.h
+    src/PopoverHelper.mm
+    src/StatusbarHelper.h
+    src/StatusbarHelper.mm
+    src/ToolbarDelegate.h
     src/ToolbarDelegate.mm
 )
 
-include_directories("src" "includes")
+include_directories("src")
 
 add_library(${PROJECT_NAME} SHARED
     ${library_SOURCES}

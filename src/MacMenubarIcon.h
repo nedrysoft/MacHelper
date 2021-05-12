@@ -19,20 +19,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef NEDRYSOFT_MENUBARICON_H
-#define NEDRYSOFT_MENUBARICON_H
+#ifndef NEDRYSOFT_MACMENUBARICON_H
+#define NEDRYSOFT_MACMENUBARICON_H
 
 #include <QObject>
 #include <QPixmap>
 
-Q_FORWARD_DECLARE_OBJC_CLASS(StatusBarHelper);
+Q_FORWARD_DECLARE_OBJC_CLASS(StatusbarHelper);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSView);
 
 namespace Nedrysoft { namespace MacHelper {
     /**
      * @brief       Provides a menu bar icon under macOS.
      */
-    class MenuBarIcon :
+    class MacMenubarIcon :
             public QObject {
 
         private:
@@ -40,16 +40,16 @@ namespace Nedrysoft { namespace MacHelper {
 
         public:
             /**
-             * @brief       Constructs a new MenuBarIcon with a pixmap.
+             * @brief       Constructs a new MacMenubarIcon with a pixmap.
              *
              * @param[in]   pixmap the pixmap to be used for the icon.
              */
-            MenuBarIcon(QPixmap pixmap);
+            MacMenubarIcon(QPixmap pixmap);
 
             /**
              * @brief       Destroys the MenuBarIcon.
              */
-            ~MenuBarIcon() = default;
+            ~MacMenubarIcon() = default;
 
             /**
              * @brief       Returns the pixmap currently being used on the icon.
@@ -97,9 +97,9 @@ namespace Nedrysoft { namespace MacHelper {
 
         private:
             QPixmap m_pixmap;
-            StatusBarHelper *m_statusBarHelper;
+            StatusbarHelper *m_statusbarHelper;
     };
 }}
 
 
-#endif // NEDRYSOFT_MENUBARICON_H
+#endif // NEDRYSOFT_MACMENUBARICON_H

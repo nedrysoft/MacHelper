@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MacHelper/MacToolbarItem.h"
+#include "MacToolbarItem.h"
 
 #import <AppKit/AppKit.h>
 

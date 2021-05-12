@@ -21,15 +21,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MacHelper/MacToolbar.h"
+#include "MacToolbar.h"
 
-#include "MacHelper/MacToolbarItem.h"
+#include "MacToolbarItem.h"
 
 #include <QWidget>
 #include <QWindow>
 
 #import <AppKit/AppKit.h>
-#import "MacHelper/ToolbarDelegate.h"
+#import "ToolbarDelegate.h"
 
 constexpr auto nativeWindowHandle(QWidget *widget) {
     widget->winId();

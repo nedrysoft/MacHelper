@@ -25,13 +25,14 @@
 #include <QWidget>
 #include <QPixmap>
 
-#import <AppKit/AppKit.h>
-#include "MacHelper/MenuBarIcon.h"
+#include "MacMenubarIcon.h"
 
-@interface StatusBarHelper : NSObject {
-    NSStatusItem *m_statusBarItem;
+#import <AppKit/AppKit.h>
+
+@interface StatusbarHelper : NSObject {
+    NSStatusItem *m_statusbarItem;
     NSStatusBarButton *m_button;
-    Nedrysoft::MacHelper::MenuBarIcon *m_menuBarIcon;
+    Nedrysoft::MacHelper::MacMenubarIcon *m_menubarIcon;
 }
 
 /**
@@ -42,13 +43,13 @@
 - (void) statusBarItemClicked:(NSStatusBarButton *) sender;
 
 /**
- * @brief       Initialises a StatusBarHelper for a given menu bar icon.
+ * @brief       Initialises a StatusbarHelper for a given menu bar icon.
  *
  * @param[in]   menuBarIcon the menu bar icon.
  *
  * @returns     the StatusBarHelper instance.
  */
-- (id) initWithMenuBarIcon:(Nedrysoft::MacHelper::MenuBarIcon *) menuBarIcon;
+- (id) initWithMenuBarIcon:(Nedrysoft::MacHelper::MacMenubarIcon *) menubarIcon;
 
 /**
  * @brief       Returns the rectangle of the menu bar icons button.

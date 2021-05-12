@@ -25,8 +25,8 @@
 #include <QWidget>
 #include <QSize>
 
-#include "MacHelper/MenuBarIcon.h"
-#include "MacHelper/Popover.h"
+#include "MacMenubarIcon.h"
+#include "MacPopover.h"
 
 #import <AppKit/AppKit.h>
 
@@ -50,7 +50,7 @@
      withView:(NSView *) view
    sourceRect:(NSRect) rect
          size:(NSSize) size
-preferredEdge:(Nedrysoft::MacHelper::Popover::Edge) preferredEdge;
+preferredEdge:(Nedrysoft::MacHelper::MacPopover::Edge) preferredEdge;
 
 @end
 

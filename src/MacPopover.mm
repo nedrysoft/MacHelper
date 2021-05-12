@@ -19,34 +19,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MacHelper/MenuBarIcon.h"
-#include "MacHelper/Popover.h"
-#include "MacHelper/PopoverHelper.h"
+#include "MacMenubarIcon.h"
+#include "MacPopover.h"
+#include "PopoverHelper.h"
 
 /*
  * TODO: need to add the direction of the popover for the general case
  */
 
-auto Nedrysoft::MacHelper::Popover::show(
-        Nedrysoft::MacHelper::MenuBarIcon *menuBarIcon,
+auto Nedrysoft::MacHelper::MacPopover::show(
+        Nedrysoft::MacHelper::MacMenubarIcon *menubarIcon,
         QWidget *contentWidget,
         QSize size,
-        Nedrysoft::MacHelper::Popover::Edge edge) -> void {
+        Nedrysoft::MacHelper::MacPopover::Edge edge) -> void {
 
     m_popover = [[PopoverHelper alloc] init];
 
     [m_popover show:contentWidget
-           withView:menuBarIcon->button()
-         sourceRect:NSRectFromCGRect(menuBarIcon->buttonRect().toCGRect())
+           withView:menubarIcon->button()
+         sourceRect:NSRectFromCGRect(menubarIcon->buttonRect().toCGRect())
                size:size.toCGSize()
       preferredEdge:edge];
 }
 
-auto Nedrysoft::MacHelper::Popover::show(
+auto Nedrysoft::MacHelper::MacPopover::show(
         QWidget *widget,
         QWidget *contentWidget,
         QSize size,
-        Nedrysoft::MacHelper::Popover::Edge edge) -> void {
+        Nedrysoft::MacHelper::MacPopover::Edge edge) -> void {
 
     m_popover = [[PopoverHelper alloc] init];
 

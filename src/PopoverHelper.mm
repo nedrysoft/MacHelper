@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "MacHelper/PopoverHelper.h"
+#include "PopoverHelper.h"
 
 @implementation PopoverHelper
 
@@ -27,7 +27,7 @@
      withView:(NSView *) view
    sourceRect:(NSRect) rect
          size:(NSSize) size
-preferredEdge:(Nedrysoft::MacHelper::Popover::Edge) preferredEdge {
+preferredEdge:(Nedrysoft::MacHelper::MacPopover::Edge) preferredEdge {
 
     m_contentWidget = contentWidget;
 
@@ -56,11 +56,11 @@ preferredEdge:(Nedrysoft::MacHelper::Popover::Edge) preferredEdge {
 
     NSRectEdge edge;
 
-    if (preferredEdge==Nedrysoft::MacHelper::Popover::Edge::MinXEdge) {
+    if (preferredEdge==Nedrysoft::MacHelper::MacPopover::Edge::MinXEdge) {
         edge = NSRectEdgeMinX;
-    } else if (preferredEdge==Nedrysoft::MacHelper::Popover::Edge::MaxXEdge) {
+    } else if (preferredEdge==Nedrysoft::MacHelper::MacPopover::Edge::MaxXEdge) {
         edge = NSRectEdgeMaxX;
-    } else if (preferredEdge==Nedrysoft::MacHelper::Popover::Edge::MinYEdge) {
+    } else if (preferredEdge==Nedrysoft::MacHelper::MacPopover::Edge::MinYEdge) {
         edge = NSRectEdgeMinY;
     } else {
         edge = NSRectEdgeMaxY;

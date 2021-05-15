@@ -30,19 +30,22 @@
 
 #import <AppKit/AppKit.h>
 
+//! @cond
+
 @interface PopoverHelper : NSObject {
     QWidget *m_contentWidget;
     NSPopover *m_popover;
     NSView *m_nativeView;
     NSViewController *m_viewController;
 }
+//! @endcond
 
 /**
  * @brief       Show the popover with the given parameters.
  *
  * @param[in]   contentWidget the widget that is used as the content of the popover.
  * @param[in]   view the view that the popover originates from.
- * @param[in]   sourceViewRect the rectangle of the view that the popover originates from.
+ * @param[in]   sourceRect the rectangle of the view that the popover originates from.
  * @param[in]   size the size of the popover window.
  * @param[in]   preferredEdge the preferred edge that the popover should be relative to.
  */

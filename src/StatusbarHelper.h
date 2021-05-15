@@ -29,11 +29,15 @@
 
 #import <AppKit/AppKit.h>
 
+//! @cond
+
 @interface StatusbarHelper : NSObject {
     NSStatusItem *m_statusbarItem;
     NSStatusBarButton *m_button;
     Nedrysoft::MacHelper::MacMenubarIcon *m_menubarIcon;
 }
+
+//! @endcond
 
 /**
  * @brief       Called when the menu bar icons button has been clicked.
@@ -68,7 +72,7 @@
 /**
  * @brief       Updates the pixmap.
  *
- * @notes       retrieves the pixmap from the MenuBarIcon that was associated during construction and sets it
+ * @note        retrieves the pixmap from the MenuBarIcon that was associated during construction and sets it
  *              to be the current icon.
  */
 - (void) updatePixmap;

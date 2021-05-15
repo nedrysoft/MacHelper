@@ -33,14 +33,15 @@ Q_FORWARD_DECLARE_OBJC_CLASS(ToolbarDelegate);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSToolbarItem);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSWindow);
 
-namespace Nedrysoft { namespace SettingsDialog {
+namespace Nedrysoft { namespace MacHelper {
     class MacToolbarItem;
 
     /**
      * @brief       The MacToolbar class provides an implementation of a native NSToolbar that is attached to a
      *              a window derived from QWindow.
+     *
+     * @class       Nedrysoft::MacHelper::MacToolbar MacToolbar.h <MacToolbar>
      */
-
     class MacToolbar {
         public:
             /**
@@ -56,7 +57,7 @@ namespace Nedrysoft { namespace SettingsDialog {
             /**
              * @brief       Adds an item to the toolbar.
              *
-             * @notes       Items are not constructed until the toolbar is attached to the window.  macOS toolbars
+             * @note        Items are not constructed until the toolbar is attached to the window.  macOS toolbars
              *              are populated by a delegate at the point of attaching the toolbar to the window.  It
              *              is important that you do not attach the toolbar until the items have been added
              *              by this method.
@@ -74,12 +75,12 @@ namespace Nedrysoft { namespace SettingsDialog {
             auto addItem(const QIcon &icon,
                          const QString &identifier,
                          const QString &label=QString(),
-                         const QString &paletteLabel=QString()) -> Nedrysoft::SettingsDialog::MacToolbarItem *;
+                         const QString &paletteLabel=QString()) -> Nedrysoft::MacHelper::MacToolbarItem *;
 
             /**
              * @brief       Attaches the toolbar to the window.
              *
-             * @notes       Must be called after the items have been added, calling this will result in the
+             * @note        Must be called after the items have been added, calling this will result in the
              *              NSToolbar calling the delegate to populate the toolbar.
              *
              *              The window must be a QWindow subclass.
@@ -93,24 +94,28 @@ namespace Nedrysoft { namespace SettingsDialog {
              *
              * @returns     the list of toolbar items.
              */
-            auto items() -> QList<Nedrysoft::SettingsDialog::MacToolbarItem *>;
+            auto items() -> QList<Nedrysoft::MacHelper::MacToolbarItem *>;
 
             /**
              * @brief       Instructs macOS that this is a preferences style toolbar.
              *
-             * @notes       Under macOS 11 (Big Sur) or later, the style of a preferences toolbar is different
+             * @note        Under macOS 11 (Big Sur) or later, the style of a preferences toolbar is different
              *              to a normal toolbar, this function will enable this style.
              */
             auto enablePreferencesToolbar() -> void;
 
         private:
+            //! @cond
+
             NSToolbar *m_toolbar;
             NSWindow *m_window;
             ToolbarDelegate *m_toolbarDelegate;
 
-            QList<Nedrysoft::SettingsDialog::MacToolbarItem *> m_items;
+            QList<Nedrysoft::MacHelper::MacToolbarItem *> m_items;
             QWindow *m_parentWindow;
             bool m_isPreferences;
+
+            //! @endcond
     };
 }}
 

@@ -31,10 +31,14 @@
  *              called to return data which macOS uses to populate the toolbar.
  */
 
+//! @cond
+
 @interface ToolbarDelegate : NSObject <NSToolbarDelegate> {
     NSToolbar *m_toolbar;
-    QList<Nedrysoft::SettingsDialog::MacToolbarItem *> m_items;
+    QList<Nedrysoft::MacHelper::MacToolbarItem *> m_items;
 }
+
+//! @endcond
 
 /**
  * @brief       Called by macOS when populating the toolbar, this returns the native toolbar item.
@@ -80,14 +84,14 @@
 /**
  * @brief       Called before an item is inserted into the toolbar.
  *
- * @param[inn]  notification a willAddItemNotification.
+ * @param[in]   notification a willAddItemNotification.
  */
 - (void) toolbarWillAddItem:(NSNotification *) notification;
 
 /**
  * @brief       Called after an item has been removed from the toolbar.
  *
- * @param[inn]  notification a didRemoveItemNotification.
+ * @param[in]   notification a didRemoveItemNotification.
  */
 - (void) toolbarDidRemoveItem:(NSNotification *) notification;
 
@@ -116,7 +120,7 @@
  *              delegate which then calls the appropriate functions to allow creation of the native toolbar
  *              items.
  */
-- (void) setItems:(QList<Nedrysoft::SettingsDialog::MacToolbarItem *>) items;
+- (void) setItems:(QList<Nedrysoft::MacHelper::MacToolbarItem *>) items;
 
 /**
  * @brief       Called when the user selects a toolbar item.

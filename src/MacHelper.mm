@@ -30,7 +30,7 @@ constexpr auto BitsPerPixel = 8;
 constexpr auto SamplesPerPixel = 4;
 constexpr auto SystemFontSize = 12;
 
-void Nedrysoft::MacHelper::enablePreferencesToolbar(QWidget *window) {
+void Nedrysoft::MacHelper::MacHelper::enablePreferencesToolbar(QWidget *window) {
     if (@available(macOS 11, *)) {
         auto nativeView = reinterpret_cast<NSView *>(window->winId());
 
@@ -56,7 +56,10 @@ void Nedrysoft::MacHelper::enablePreferencesToolbar(QWidget *window) {
     }
 }
 
-auto Nedrysoft::MacHelper::standardImage(StandardImage::StandardImageName standardImage, QSize imageSize)->QPixmap {
+auto Nedrysoft::MacHelper::MacHelper::standardImage(
+        StandardImage::StandardImageName standardImage,
+        QSize imageSize)->QPixmap {
+
     auto bitmapRepresentation = [[NSBitmapImageRep alloc]
             initWithBitmapDataPlanes: nullptr
                           pixelsWide: imageSize.width()
@@ -74,17 +77,17 @@ auto Nedrysoft::MacHelper::standardImage(StandardImage::StandardImageName standa
     NSString *nativeImageName = nullptr;
 
     switch(standardImage) {
-        case Nedrysoft::StandardImage::NSImageNamePreferencesGeneral: {
+        case Nedrysoft::MacHelper::StandardImage::NSImageNamePreferencesGeneral: {
             nativeImageName = NSImageNamePreferencesGeneral;
             break;
         }
 
-        case Nedrysoft::StandardImage::NSImageNameUserAccounts: {
+        case Nedrysoft::MacHelper::StandardImage::NSImageNameUserAccounts: {
             nativeImageName = NSImageNameUserAccounts;
             break;
         }
 
-        case Nedrysoft::StandardImage::NSImageNameAdvanced: {
+        case Nedrysoft::MacHelper::StandardImage::NSImageNameAdvanced: {
             nativeImageName = NSImageNameAdvanced;
             break;
         }
@@ -96,7 +99,10 @@ auto Nedrysoft::MacHelper::standardImage(StandardImage::StandardImageName standa
 
     [NSGraphicsContext setCurrentContext: [NSGraphicsContext graphicsContextWithBitmapImageRep: bitmapRepresentation]];
 
-    [nsImage drawInRect: NSMakeRect(0, 0, imageSize.width(), imageSize.height()) fromRect: NSZeroRect operation: NSCompositingOperationSourceOver fraction: 1];
+    [nsImage drawInRect: NSMakeRect(0, 0, imageSize.width(), imageSize.height())
+               fromRect: NSZeroRect
+              operation: NSCompositingOperationSourceOver
+               fraction: 1];
 
     [NSGraphicsContext restoreGraphicsState];
 
@@ -111,12 +117,12 @@ auto Nedrysoft::MacHelper::standardImage(StandardImage::StandardImageName standa
     return QPixmap::fromImage(image);
 }
 
-auto Nedrysoft::MacHelper::nativeAlert(
+auto Nedrysoft::MacHelper::MacHelper::nativeAlert(
         QWidget *parent,
         const QString &messageText,
         const QString &informativeText,
         const QStringList &buttons,
-        std::function<void(Nedrysoft::AlertButton::AlertButtonResult)> alertFunction) -> void {
+        std::function<void(Nedrysoft::MacHelper::AlertButton::AlertButtonResult)> alertFunction) -> void {
 
     Q_UNUSED(parent)
 
@@ -139,11 +145,15 @@ auto Nedrysoft::MacHelper::nativeAlert(
 
         [alert release];
 
-        alertFunction(static_cast<Nedrysoft::AlertButton::AlertButtonResult>(returnValue));
+        alertFunction(static_cast<Nedrysoft::MacHelper::AlertButton::AlertButtonResult>(returnValue));
     });
 }
 
-auto Nedrysoft::MacHelper::loadImage(const QString &filename, std::shared_ptr<char *> &data, unsigned int *length) -> bool {
+auto Nedrysoft::MacHelper::MacHelper::loadImage(
+        const QString &filename,
+        std::shared_ptr<char *> &data,
+        unsigned int *length) -> bool {
+
     auto fileName = filename.toNSString();
 
     auto loadedImage = [[NSImage alloc] initWithContentsOfFile:fileName];
@@ -167,7 +177,13 @@ auto Nedrysoft::MacHelper::loadImage(const QString &filename, std::shared_ptr<ch
     return false;
 }
 
-auto Nedrysoft::MacHelper::imageForFile(const QString &filename, std::shared_ptr<char *> &data, unsigned int *length, int width, int height) -> bool {
+auto Nedrysoft::MacHelper::MacHelper::imageForFile(
+        const QString &filename,
+        std::shared_ptr<char *> &data,
+        unsigned int *length,
+        int width,
+        int height) -> bool {
+
     auto loadedImage = [[NSWorkspace sharedWorkspace] iconForFile:filename.toNSString()];
 
     [loadedImage setSize:NSMakeSize(width,height)];
@@ -187,13 +203,13 @@ auto Nedrysoft::MacHelper::imageForFile(const QString &filename, std::shared_ptr
     return false;
 }
 
-auto Nedrysoft::MacHelper::systemFontName() -> QString {
+auto Nedrysoft::MacHelper::MacHelper::systemFontName() -> QString {
     auto font = [NSFont systemFontOfSize: SystemFontSize];
 
     return QString([[font fontName] cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 }
 
-auto Nedrysoft::MacHelper::fontFilename(const QString& fontName) ->QString {
+auto Nedrysoft::MacHelper::MacHelper::fontFilename(const QString& fontName) ->QString {
     auto font = [NSFont fontWithName: [NSString stringWithCString: fontName.toLatin1().data() encoding: [NSString defaultCStringEncoding]] size: SystemFontSize];
 
     if (font) {

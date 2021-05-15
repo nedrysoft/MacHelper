@@ -26,7 +26,7 @@
 
 class QMacToolBar;
 
-namespace Nedrysoft {
+namespace Nedrysoft { namespace MacHelper {
     namespace StandardImage {
         /**
          * @brief       StandardImageName enum.
@@ -55,7 +55,7 @@ namespace Nedrysoft {
         /**
          * @brief       Returns the NSAlert button identifier for the zero based index.
          *
-         * @notes       This is a constexpr function which the preprocessor will convert to a constant value, and
+         * @note        This is a constexpr function which the preprocessor will convert to a constant value, and
          *              this allows it to be used in switch statements.
          *
          * @param[in]   n the zero based index of the button;
@@ -71,6 +71,8 @@ namespace Nedrysoft {
      * @brief       The MacHelper class.
      *
      * @details     Provides helper functions to allow more native mac os functionality where required.
+     *
+     * @class       Nedrysoft::MacHelper::MacHelper MacHelper.h <MacHelper>
      */
     class MacHelper {
         public:
@@ -78,7 +80,7 @@ namespace Nedrysoft {
              * @brief       Returns a pixmap of a mac standard icon.
              *
              * @param[in]   imageName the standard image identifier.
-             * @param[in]   size the required size of the resulting image.
+             * @param[in]   imageSize the required size of the resulting image.
              *
              * @returns     A pixmap of the named image.
              */
@@ -98,11 +100,12 @@ namespace Nedrysoft {
              *
              * @see         Nedrysoft::AlertButton
              */
-            static auto nativeAlert(QWidget *parent,
-                                    const QString &messageText,
-                                    const QString &informativeText,
-                                    const QStringList &buttons,
-                                    std::function<void(Nedrysoft::AlertButton::AlertButtonResult)> alertFunction
+            static auto nativeAlert(
+                    QWidget *parent,
+                    const QString &messageText,
+                    const QString &informativeText,
+                    const QStringList &buttons,
+                    std::function<void(Nedrysoft::MacHelper::AlertButton::AlertButtonResult)> alertFunction
             ) -> void;
 
             /**
@@ -158,6 +161,6 @@ namespace Nedrysoft {
              */
             static void enablePreferencesToolbar(QWidget *window);
     };
-}
+}}
 
 #endif // NEDRYSOFT_MACHELPER_H

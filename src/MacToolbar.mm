@@ -36,7 +36,7 @@ constexpr auto nativeWindowHandle(QWidget *widget) {
     return widget->windowHandle();
 }
 
-Nedrysoft::SettingsDialog::MacToolbar::MacToolbar() :
+Nedrysoft::MacHelper::MacToolbar::MacToolbar() :
         m_toolbar(nullptr),
         m_toolbarDelegate(nullptr),
         m_parentWindow(nullptr),
@@ -45,13 +45,13 @@ Nedrysoft::SettingsDialog::MacToolbar::MacToolbar() :
 
 }
 
-Nedrysoft::SettingsDialog::MacToolbar::~MacToolbar() {
+Nedrysoft::MacHelper::MacToolbar::~MacToolbar() {
     if (m_toolbarDelegate) {
         [m_toolbarDelegate release];
     }
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbar::addItem(
+auto Nedrysoft::MacHelper::MacToolbar::addItem(
         const QIcon &icon,
         const QString &identifier,
         const QString &label,
@@ -64,7 +64,7 @@ auto Nedrysoft::SettingsDialog::MacToolbar::addItem(
     return toolbarItem;
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbar::enablePreferencesToolbar() -> void {
+auto Nedrysoft::MacHelper::MacToolbar::enablePreferencesToolbar() -> void {
     if (!m_window) {
         m_isPreferences = true;
 
@@ -80,7 +80,7 @@ auto Nedrysoft::SettingsDialog::MacToolbar::enablePreferencesToolbar() -> void {
     }
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbar::attachToWindow(QWidget *parent) -> void {
+auto Nedrysoft::MacHelper::MacToolbar::attachToWindow(QWidget *parent) -> void {
     m_toolbar = [[NSToolbar alloc] init];
 
     parent->winId();
@@ -118,7 +118,7 @@ auto Nedrysoft::SettingsDialog::MacToolbar::attachToWindow(QWidget *parent) -> v
     }
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbar::items() -> QList<Nedrysoft::SettingsDialog::MacToolbarItem *> {
+auto Nedrysoft::MacHelper::MacToolbar::items() -> QList<Nedrysoft::MacHelper::MacToolbarItem *> {
     return m_items;
 }
 

@@ -30,7 +30,7 @@ constexpr auto IconSize = 256;
 - (NSToolbarItem *) toolbar:(NSToolbar *) toolbar
       itemForItemIdentifier:(NSString *) itemIdentifier
   willBeInsertedIntoToolbar:(BOOL) flag  {
-    Nedrysoft::SettingsDialog::MacToolbarItem *foundItem = nil;
+    Nedrysoft::MacHelper::MacToolbarItem *foundItem = nil;
 
     for (auto toolbarItem : m_items) {
         if (toolbarItem->identifier()==QString::fromNSString(itemIdentifier)) {
@@ -96,7 +96,7 @@ constexpr auto IconSize = 256;
     return image;
 }
 
-- (void) setItems:(QList<Nedrysoft::SettingsDialog::MacToolbarItem *>) items {
+- (void) setItems:(QList<Nedrysoft::MacHelper::MacToolbarItem *>) items {
     m_items = items;
 }
 

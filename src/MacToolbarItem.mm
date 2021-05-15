@@ -25,7 +25,7 @@
 
 #import <AppKit/AppKit.h>
 
-Nedrysoft::SettingsDialog::MacToolbarItem::MacToolbarItem(
+Nedrysoft::MacHelper::MacToolbarItem::MacToolbarItem(
         const QIcon &icon, const QString &identifier, const QString &label, const QString &paletteLabel) :
             m_icon(icon),
             m_identifier(identifier),
@@ -35,18 +35,18 @@ Nedrysoft::SettingsDialog::MacToolbarItem::MacToolbarItem(
 
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbarItem::identifier() -> QString {
+auto Nedrysoft::MacHelper::MacToolbarItem::identifier() -> QString {
     return m_identifier;
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbarItem::icon() -> QIcon {
+auto Nedrysoft::MacHelper::MacToolbarItem::icon() -> QIcon {
     return m_icon;
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbarItem::item() -> NSToolbarItem * {
+auto Nedrysoft::MacHelper::MacToolbarItem::item() -> NSToolbarItem * {
     return m_toolbarItem;
 }
 
-auto Nedrysoft::SettingsDialog::MacToolbarItem::setToolbarItem(NSToolbarItem *item) -> void {
+auto Nedrysoft::MacHelper::MacToolbarItem::setToolbarItem(NSToolbarItem *item) -> void {
     m_toolbarItem = item;
 }

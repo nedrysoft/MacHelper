@@ -32,6 +32,8 @@ namespace Nedrysoft { namespace MacHelper {
 
     /**
      * @brief       Displays a native macOS popover window.
+     *
+     * @class       Nedrysoft::MacHelper::MacPopover MacPopover.h <MacPopover>
      */
     class MacPopover :
             public QObject {
@@ -40,6 +42,9 @@ namespace Nedrysoft { namespace MacHelper {
             Q_OBJECT
 
         public:
+            /**
+             * @brief       The list of edges that the popover can be aligned to.
+             */
             enum class Edge {
                 MaxXEdge,
                 MaxYEdge,
@@ -51,7 +56,7 @@ namespace Nedrysoft { namespace MacHelper {
             /**
              * @brief       Shows the popup relative to a menu bar icon.
              *
-             * @notes       The popover becomes the owner of the contentWidget, you must not delete it as it is
+             * @note        The popover becomes the owner of the contentWidget, you must not delete it as it is
              *              the responsibility of the popover to manage the widget.
              *
              * @param[in]   menubarIcon the menu bar icon that the popover is relative to.
@@ -68,7 +73,7 @@ namespace Nedrysoft { namespace MacHelper {
             /**
              * @brief       Shows the popup relative to a widget.
              *
-             * @notes       The popover becomes the owner of the contentWidget, you must not delete it as it is
+             * @note        The popover becomes the owner of the contentWidget, you must not delete it as it is
              *              the responsibility of the popover to manage the widget.
              *
              * @param[in]   widget the widget that the popover is relative to.
@@ -89,7 +94,11 @@ namespace Nedrysoft { namespace MacHelper {
             Q_SIGNAL void closed();
 
         private:
+            //! @cond
+
             PopoverHelper *m_popover;
+
+            //! @endcond
     };
 }}
 

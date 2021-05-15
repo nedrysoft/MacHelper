@@ -33,10 +33,12 @@ Q_FORWARD_DECLARE_OBJC_CLASS(ToolbarDelegate);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSToolbarItem);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSWindow);
 
-namespace Nedrysoft { namespace SettingsDialog {
+namespace Nedrysoft { namespace MacHelper {
     /**
      * @brief       The MacToolbarItem class represents a toolbar item.  It is a container for the native
      *              NSToolbarItem.
+     *
+     * @class       Nedrysoft::MacHelper::MacToolbarItem MacToolbarItem.h <MacToolbarItem>
      */
     class MacToolbarItem :
                 public QObject {
@@ -88,7 +90,7 @@ namespace Nedrysoft { namespace SettingsDialog {
             auto item() -> NSToolbarItem *;
 
             /**
-             * @frief       Returns the label that is displayed on the toolbar item.
+             * @brief       Returns the label that is displayed on the toolbar item.
              *
              * @note        If this has not been set, then it defaults to the items identifier.
              *
@@ -122,11 +124,15 @@ namespace Nedrysoft { namespace SettingsDialog {
             Q_SIGNAL void activated();
 
         private:
+            //! @cond
+
             NSToolbarItem *m_toolbarItem;
             QString m_identifier;
             QIcon m_icon;
             QString m_paletteLabel;
             QString m_label;
+
+            //! @endcond
     };
 }}
 

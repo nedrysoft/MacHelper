@@ -31,6 +31,8 @@ Q_FORWARD_DECLARE_OBJC_CLASS(NSView);
 namespace Nedrysoft { namespace MacHelper {
     /**
      * @brief       Provides a menu bar icon under macOS.
+     *
+     * @class       Nedrysoft::MacHelper::MacMenubarIcon MacMenubarIcon.h <MacMenubarIcon>
      */
     class MacMenubarIcon :
             public QObject {
@@ -96,8 +98,12 @@ namespace Nedrysoft { namespace MacHelper {
             Q_SIGNAL void clicked();
 
         private:
+            //! @cond
+
             QPixmap m_pixmap;
             StatusbarHelper *m_statusbarHelper;
+
+            //! @endcond
     };
 }}
 

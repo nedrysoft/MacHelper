@@ -33,6 +33,7 @@
 
 constexpr auto nativeWindowHandle(QWidget *widget) {
     widget->winId();
+
     return widget->windowHandle();
 }
 

@@ -30,6 +30,52 @@ constexpr auto BitsPerPixel = 8;
 constexpr auto SamplesPerPixel = 4;
 constexpr auto SystemFontSize = 12;
 
+auto Nedrysoft::MacHelper::MacHelper::setTitlebarColour(QWidget *window, QColor colour, bool brightText) -> void {
+    auto nativeView = reinterpret_cast<NSView *>(window->winId());
+
+    if (!nativeView) {
+        return;
+    }
+
+    Q_ASSERT_X([nativeView isKindOfClass:[NSView class]], static_cast<const char *>(__FUNCTION__),
+               "Object was not a NSView");
+
+    auto nativeWindow = [nativeView window];
+
+    if (nativeWindow == nil) {
+        return;
+    }
+
+    Q_ASSERT_X([nativeWindow isKindOfClass:[NSWindow class]], static_cast<const char *>(__FUNCTION__),
+               "Object was not a NSWindow");
+
+    auto setTitlebar = [nativeWindow, colour, brightText]() {
+        [nativeWindow setTitlebarAppearsTransparent:true];
+
+        [nativeWindow setBackgroundColor:[NSColor colorWithRed:colour.redF()
+                                                         green:colour.greenF()
+                                                          blue:colour.blueF()
+                                                         alpha:colour.alphaF()]];
+
+        if (brightText) {
+            [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantDark]];
+        } else {
+            [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+        }
+    };
+
+    setTitlebar();
+
+    // QMainWindow seems to do some other stuff with the window after the constructor, therefore we call setTItlebar
+    // once in here which sets it to almost the correct colour, and then again via the event loop.  This resolves
+    // a flash where the original color is seen briefly.  It would be better to find out exactly what the issue is
+    // and fix it properly, but for the moment....
+
+    QTimer::singleShot(0, [setTitlebar]() {
+        setTitlebar();
+    });
+}
+
 void Nedrysoft::MacHelper::MacHelper::enablePreferencesToolbar(QWidget *window) {
     if (@available(macOS 11, *)) {
         auto nativeView = reinterpret_cast<NSView *>(window->winId());

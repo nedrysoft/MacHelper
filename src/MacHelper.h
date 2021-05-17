@@ -160,6 +160,15 @@ namespace Nedrysoft { namespace MacHelper {
              * @param[in]   window the window with the native toolbar.
              */
             static void enablePreferencesToolbar(QWidget *window);
+
+            /**
+             * @brief       Sets the title bar to the given colour.
+             *
+             * @param[in]   window the window to change the title bar of.
+             * @param[in]   colour the desired color.
+             * @param[in]   brightText true if the text should be light; otherwie false;
+             */
+            auto setTitlebarColour(QWidget *window, QColor colour,  bool brightText) -> void;
     };
 }}
 

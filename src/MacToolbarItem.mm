@@ -25,6 +25,8 @@
 
 #import <AppKit/AppKit.h>
 
+constexpr auto IconSize = 256;
+
 Nedrysoft::MacHelper::MacToolbarItem::MacToolbarItem(
         const QIcon &icon, const QString &identifier, const QString &label, const QString &paletteLabel) :
             m_icon(icon),
@@ -33,6 +35,17 @@ Nedrysoft::MacHelper::MacToolbarItem::MacToolbarItem(
             m_paletteLabel(paletteLabel.isEmpty()==false ? paletteLabel:identifier),
             m_toolbarItem(nullptr) {
 
+}
+
+auto Nedrysoft::MacHelper::MacToolbarItem::setIcon(QIcon icon) -> void {
+    auto pixmap = icon.pixmap(IconSize, IconSize);
+
+    NSImage *image = [[NSImage alloc] initWithCGImage: pixmap.toImage().toCGImage()
+                                                 size: CGSizeMake(IconSize, IconSize)];
+
+    [m_toolbarItem setImage:image];
+
+    [image release];
 }
 
 auto Nedrysoft::MacHelper::MacToolbarItem::identifier() -> QString {

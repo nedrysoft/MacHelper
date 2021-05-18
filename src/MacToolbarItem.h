@@ -80,6 +80,11 @@ namespace Nedrysoft { namespace MacHelper {
             auto icon() -> QIcon;
 
             /**
+             * @brief       Sets the icon for the item.
+             */
+            auto setIcon(QIcon icon) -> void;
+
+            /**
              * @brief       Returns the native NSToolBarItem assigned to the item.
              *
              * @note        This will be a nullptr until the toolbar has been attached to the window and the

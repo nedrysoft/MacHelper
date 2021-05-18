@@ -49,31 +49,50 @@ auto Nedrysoft::MacHelper::MacHelper::setTitlebarColour(QWidget *window, QColor 
     Q_ASSERT_X([nativeWindow isKindOfClass:[NSWindow class]], static_cast<const char *>(__FUNCTION__),
                "Object was not a NSWindow");
 
-    auto setTitlebar = [nativeWindow, colour, brightText]() {
-        [nativeWindow setTitlebarAppearsTransparent:true];
+    [nativeWindow setTitlebarAppearsTransparent:true];
 
-        [nativeWindow setBackgroundColor:[NSColor colorWithRed:colour.redF()
-                                                         green:colour.greenF()
-                                                          blue:colour.blueF()
-                                                         alpha:colour.alphaF()]];
+    [nativeWindow setBackgroundColor:[NSColor colorWithRed:colour.redF()
+                                                     green:colour.greenF()
+                                                      blue:colour.blueF()
+                                                     alpha:colour.alphaF()]];
 
-        if (brightText) {
-            [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantDark]];
+    if (brightText) {
+        [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantDark]];
+    } else {
+        [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+    }
+}
+
+auto Nedrysoft::MacHelper::MacHelper::clearTitlebarColour(QWidget *window, bool isDarkMode) -> void {
+    auto nativeView = reinterpret_cast<NSView *>(window->winId());
+
+    if (!nativeView) {
+        return;
+    }
+
+    Q_ASSERT_X([nativeView isKindOfClass:[NSView class]], static_cast<const char *>(__FUNCTION__),
+               "Object was not a NSView");
+
+    auto nativeWindow = [nativeView window];
+
+    if (nativeWindow == nil) {
+        return;
+    }
+
+    Q_ASSERT_X([nativeWindow isKindOfClass:[NSWindow class]], static_cast<const char *>(__FUNCTION__),
+               "Object was not a NSWindow");
+
+    [nativeWindow setTitlebarAppearsTransparent:false];
+
+    if (@available(macOS 10.14, *)) {
+        if (isDarkMode) {
+            [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameDarkAqua]];
         } else {
-            [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameVibrantLight]];
+            [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
         }
-    };
-
-    setTitlebar();
-
-    // QMainWindow seems to do some other stuff with the window after the constructor, therefore we call setTItlebar
-    // once in here which sets it to almost the correct colour, and then again via the event loop.  This resolves
-    // a flash where the original color is seen briefly.  It would be better to find out exactly what the issue is
-    // and fix it properly, but for the moment....
-
-    QTimer::singleShot(0, [setTitlebar]() {
-        setTitlebar();
-    });
+    } else {
+        [nativeWindow setAppearance:[NSAppearance appearanceNamed:NSAppearanceNameAqua]];
+    }
 }
 
 void Nedrysoft::MacHelper::MacHelper::enablePreferencesToolbar(QWidget *window) {

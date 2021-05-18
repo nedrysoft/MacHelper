@@ -169,6 +169,14 @@ namespace Nedrysoft { namespace MacHelper {
              * @param[in]   brightText true if the text should be light; otherwie false;
              */
             auto setTitlebarColour(QWidget *window, QColor colour,  bool brightText) -> void;
+
+            /**
+             * @brief       Clears the titlebar colour.
+             *
+             * @param[in]   window the window to clear the title bar colour on.
+             * @param[in]   isDarkMode true if resetting to dark mode; otherwse false.
+             */
+            auto clearTitlebarColour(QWidget *window, bool isDarkMode) -> void;
     };
 }}
 

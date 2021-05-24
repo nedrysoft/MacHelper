@@ -289,3 +289,14 @@ auto Nedrysoft::MacHelper::MacHelper::fontFilename(const QString& fontName) ->QS
 
     return QString();
 }
+
+auto Nedrysoft::MacHelper::MacHelper::hideApplication() -> void {
+    [[NSApplication sharedApplication] setActivationPolicy:NSApplicationActivationPolicyProhibited];
+}
+
+auto Nedrysoft::MacHelper::MacHelper::showApplication() -> void {
+    NSApplication *applicationInstance = [NSApplication sharedApplication];
+
+    [applicationInstance setActivationPolicy:NSApplicationActivationPolicyRegular];
+    [applicationInstance activateIgnoringOtherApps:YES];
+}

@@ -29,6 +29,11 @@ Q_FORWARD_DECLARE_OBJC_CLASS(StatusbarHelper);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSView);
 
 namespace Nedrysoft { namespace MacHelper {
+    enum class MouseButton {
+        Unknown,
+        Left,
+        Right
+    };
     /**
      * @brief       Provides a menu bar icon under macOS.
      *
@@ -95,7 +100,7 @@ namespace Nedrysoft { namespace MacHelper {
             /**
              * @brief       This signal is emitted when the icon is clicked.
              */
-            Q_SIGNAL void clicked();
+            Q_SIGNAL void clicked(Nedrysoft::MacHelper::MouseButton mouseButton);
 
         private:
             //! @cond

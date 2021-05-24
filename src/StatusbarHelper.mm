@@ -21,12 +21,24 @@
 
 #include "StatusbarHelper.h"
 
+#include "MacHelper.h"
+
 constexpr auto StatusbarIconSize = 20;
 
 @implementation StatusbarHelper
-
+#include <QDebug>
 - (void) statusBarItemClicked:(NSStatusBarButton *) sender {
-    Q_EMIT m_menubarIcon->clicked();
+    NSEventType eventType = [[[NSApplication sharedApplication] currentEvent] type];
+
+    Nedrysoft::MacHelper::MouseButton button = Nedrysoft::MacHelper::MouseButton::Unknown;
+
+    if (eventType==NSEventTypeRightMouseUp) {
+        button = Nedrysoft::MacHelper::MouseButton::Right;
+    } else if (eventType==NSEventTypeLeftMouseUp) {
+        button = Nedrysoft::MacHelper::MouseButton::Left;
+    }
+
+    Q_EMIT m_menubarIcon->clicked(button);
 }
 
 - (id) initWithMenuBarIcon:(Nedrysoft::MacHelper::MacMenubarIcon *) menubarIcon {
@@ -59,6 +71,7 @@ constexpr auto StatusbarIconSize = 20;
 
     [m_button setTarget:self];
     [m_button setAction:@selector(statusBarItemClicked:)];
+    [m_button sendActionOn: NSEventMaskLeftMouseUp | NSEventMaskRightMouseUp];
 
     [nativeImage release];
 

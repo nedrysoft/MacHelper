@@ -177,6 +177,16 @@ namespace Nedrysoft { namespace MacHelper {
              * @param[in]   isDarkMode true if resetting to dark mode; otherwse false.
              */
             auto clearTitlebarColour(QWidget *window, bool isDarkMode) -> void;
+
+            /**
+             * @brief       Hides the application, closes the windows but remains running in the background.
+             */
+            static auto hideApplication() -> void;
+
+            /**
+             * @brief       Shows the application if it is hidden.
+             */
+            static auto showApplication() -> void;
     };
 }}
 

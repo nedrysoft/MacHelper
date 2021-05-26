@@ -53,3 +53,7 @@ auto Nedrysoft::MacHelper::MacMenubarIcon::show() -> void {
 auto Nedrysoft::MacHelper::MacMenubarIcon::hide() -> void {
     [m_statusbarHelper setVisible: false];
 }
+
+auto Nedrysoft::MacHelper::MacMenubarIcon::showMenu(QMenu *menu) -> void {
+    [m_statusbarHelper showMenu: menu];
+}

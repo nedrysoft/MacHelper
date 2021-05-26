@@ -23,10 +23,12 @@
 
 #include "MacHelper.h"
 
+#include <QMenu>
+
 constexpr auto StatusbarIconSize = 20;
 
 @implementation StatusbarHelper
-#include <QDebug>
+
 - (void) statusBarItemClicked:(NSStatusBarButton *) sender {
     NSEventType eventType = [[[NSApplication sharedApplication] currentEvent] type];
 
@@ -105,6 +107,11 @@ constexpr auto StatusbarIconSize = 20;
 
 - (void) setVisible:(bool) visible {
     [m_button setHidden: !visible];
+}
+
+- (void) showMenu:(QMenu *) menu {
+    [m_button setMenu:menu->toNSMenu()];
+    [m_button performClick:nil];
 }
 
 @end

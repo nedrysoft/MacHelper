@@ -29,6 +29,8 @@
 
 #import <AppKit/AppKit.h>
 
+class QMenu;
+
 //! @cond
 
 @interface StatusbarHelper : NSObject {
@@ -83,6 +85,11 @@
  * @param[in]   visible true if the icon is to be shown; otherwise false.
  */
 - (void) setVisible:(bool) visible;
+
+/**
+ * @brief       When responding to a click on the icon, this method can be used to show the menu.
+ */
+- (void) showMenu:(QMenu *) menu;
 
 @end
 

@@ -25,6 +25,8 @@
 #include <QObject>
 #include <QPixmap>
 
+class QMenu;
+
 Q_FORWARD_DECLARE_OBJC_CLASS(StatusbarHelper);
 Q_FORWARD_DECLARE_OBJC_CLASS(NSView);
 
@@ -95,6 +97,13 @@ namespace Nedrysoft { namespace MacHelper {
              * @brief       Hides the menu bar icon.
              */
             auto hide() -> void;
+
+            /**
+             * @brief       Shows the given menu from the status bar icon origin.
+             *
+             * @param[in]   menu the menu to open.
+             */
+            auto showMenu(QMenu *menu) -> void;
 
         public:
             /**

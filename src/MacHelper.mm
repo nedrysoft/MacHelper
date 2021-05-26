@@ -30,6 +30,10 @@ constexpr auto BitsPerPixel = 8;
 constexpr auto SamplesPerPixel = 4;
 constexpr auto SystemFontSize = 12;
 
+int Nedrysoft::MacHelper::MacHelper::m_appNapCount = 0;
+NSObject *Nedrysoft::MacHelper::MacHelper::m_appNapActivity = nullptr;
+QRecursiveMutex Nedrysoft::MacHelper::MacHelper::m_appNapMutex = QRecursiveMutex();
+
 auto Nedrysoft::MacHelper::MacHelper::setTitlebarColour(QWidget *window, QColor colour, bool brightText) -> void {
     auto nativeView = reinterpret_cast<NSView *>(window->winId());
 
@@ -267,9 +271,13 @@ auto Nedrysoft::MacHelper::MacHelper::imageForFile(
 
     return false;
 }
+#include <QDebug>
+#include <QApplication>
 
 auto Nedrysoft::MacHelper::MacHelper::systemFontName() -> QString {
     auto font = [NSFont systemFontOfSize: SystemFontSize];
+
+    qDebug() << qApp->font();
 
     return QString([[font fontName] cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 }
@@ -299,4 +307,35 @@ auto Nedrysoft::MacHelper::MacHelper::showApplication() -> void {
 
     [applicationInstance setActivationPolicy:NSApplicationActivationPolicyRegular];
     [applicationInstance activateIgnoringOtherApps:YES];
+}
+
+auto Nedrysoft::MacHelper::MacHelper::disableAppNap(const QString &reason) -> void {
+    QMutexLocker mutexLocker(&m_appNapMutex);
+
+    if (m_appNapActivity == nil) {
+        if ([[NSProcessInfo processInfo] respondsToSelector:@selector(beginActivityWithOptions:reason:)]) {
+            m_appNapActivity = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiatedAllowingIdleSystemSleep reason:reason.toNSString()];
+        }
+
+        if (m_appNapActivity)
+            m_appNapCount++;
+    }
+
+    //m_appNapReasons.push(reason);
+}
+
+auto Nedrysoft::MacHelper::MacHelper::enableAppNap() -> void {
+    QMutexLocker mutexLocker(&m_appNapMutex);
+
+    if (m_appNapCount) {
+        m_appNapCount--;
+
+        if (m_appNapCount == 0) {
+            if (m_appNapActivity != nil) {
+                [[NSProcessInfo processInfo] endActivity:m_appNapActivity];
+
+                m_appNapActivity = nil;
+            }
+        }
+    }
 }

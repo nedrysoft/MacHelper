@@ -23,8 +23,12 @@
 #define NEDRYSOFT_MACHELPER_H
 
 #include <QPixmap>
+#include <QStack>
+#include <QRecursiveMutex>
 
 class QMacToolBar;
+
+Q_FORWARD_DECLARE_OBJC_CLASS(NSObject);
 
 namespace Nedrysoft { namespace MacHelper {
     namespace StandardImage {
@@ -187,6 +191,22 @@ namespace Nedrysoft { namespace MacHelper {
              * @brief       Shows the application if it is hidden.
              */
             static auto showApplication() -> void;
+
+            /**
+             * @brief       prevent app nap from being used.
+             */
+            static auto enableAppNap() -> void;
+
+            /**
+             * @brief       prevent app nap from being used.
+             */
+            static auto disableAppNap(const QString &reason) -> void;
+
+        private:
+            static int m_appNapCount;
+            static QRecursiveMutex m_appNapMutex;
+            static NSObject *m_appNapActivity;
+            //static QStack<QString> m_appNapReasons;
     };
 }}
 

@@ -22,6 +22,8 @@
 #ifndef NEDRYSOFT_STATUSBARHELPER_H
 #define NEDRYSOFT_STATUSBARHELPER_H
 
+#include <QAction>
+#include <QMap>
 #include <QWidget>
 #include <QPixmap>
 
@@ -33,10 +35,14 @@ class QMenu;
 
 //! @cond
 
-@interface StatusbarHelper : NSObject {
+@interface StatusbarHelper : NSObject <NSMenuDelegate> {
     NSStatusItem *m_statusbarItem;
     NSStatusBarButton *m_button;
     Nedrysoft::MacHelper::MacMenubarIcon *m_menubarIcon;
+    id<NSMenuDelegate> m_delegate;
+    QMenu *m_menu;
+    NSMenu *m_nativeMenu;
+    QMap<int, QAction *> m_actionMap;
 }
 
 //! @endcond
@@ -90,6 +96,20 @@ class QMenu;
  * @brief       When responding to a click on the icon, this method can be used to show the menu.
  */
 - (void) showMenu:(QMenu *) menu;
+
+/**
+ * @brief       Called when the menu is dismissed.
+ *
+ * @param[in]   menu the menu that was closed.
+ */
+- (void) menuDidClose:(NSMenu *) menu;
+
+/**
+ * @brief       Called when a menu item is selected.
+ *
+ * @param[id]   sender a pointer to the NSMenuItem that was selected.
+ */
+- (void) performAction:(id) sender;
 
 @end
 

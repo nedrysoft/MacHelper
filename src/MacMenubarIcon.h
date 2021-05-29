@@ -111,6 +111,13 @@ namespace Nedrysoft { namespace MacHelper {
              */
             Q_SIGNAL void clicked(Nedrysoft::MacHelper::MouseButton mouseButton);
 
+            /**
+             * @brief       This signal is emitted when the menu is closed.
+             *
+             * @param[in]   menu the menu that was closed.
+             */
+            Q_SIGNAL void menuClosed(QMenu *menu);
+
         private:
             //! @cond
 

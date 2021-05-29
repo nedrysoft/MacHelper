@@ -21,9 +21,8 @@
 
 #include "StatusbarHelper.h"
 
-#include "MacHelper.h"
-
 #include <QMenu>
+#include <QDebug>
 
 constexpr auto StatusbarIconSize = 20;
 
@@ -110,8 +109,54 @@ constexpr auto StatusbarIconSize = 20;
 }
 
 - (void) showMenu:(QMenu *) menu {
-    [m_button setMenu:menu->toNSMenu()];
+    m_nativeMenu = [[NSMenu alloc] init];
+
+    auto itemIndex = 1;
+
+    for (auto action : menu->actions()) {
+        NSMenuItem *menuItem = [[NSMenuItem alloc] init];
+
+        m_actionMap[itemIndex] = action;
+
+        [menuItem setTitle: action->text().toNSString()];
+        [menuItem setTarget: self];
+        [menuItem setAction: @selector(performAction:)];
+        [menuItem setTag: itemIndex++];
+
+        [m_nativeMenu addItem:menuItem];
+    }
+
+    m_delegate = [m_nativeMenu delegate];
+
+    [m_nativeMenu setDelegate: self];
+
+    [m_statusbarItem setMenu: m_nativeMenu];
+
     [m_button performClick:nil];
+}
+
+- (void) menuDidClose:(NSMenu *) menu {
+    [m_statusbarItem setMenu: nil];
+
+    [menu release];
+
+    Q_EMIT m_menubarIcon->menuClosed(m_menu);
+}
+
+- (void) performAction:(id) sender {
+    NSMenuItem *menuItem = (NSMenuItem *) sender;
+
+    if (menuItem!=nil) {
+        int itemIndex = [menuItem tag];
+
+        if (itemIndex) {
+            auto action = m_actionMap[itemIndex];
+
+            if (action) {
+                action->trigger();
+            }
+        }
+    }
 }
 
 @end

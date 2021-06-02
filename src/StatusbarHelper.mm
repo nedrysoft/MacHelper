@@ -22,7 +22,6 @@
 #include "StatusbarHelper.h"
 
 #include <QMenu>
-#include <QDebug>
 
 constexpr auto StatusbarIconSize = 20;
 
@@ -113,14 +112,31 @@ constexpr auto StatusbarIconSize = 20;
 
     auto itemIndex = 1;
 
+    int previousISeparatorItem = false;
+
     for (auto action : menu->actions()) {
-        NSMenuItem *menuItem = [[NSMenuItem alloc] init];
+        NSMenuItem *menuItem;
+
+        if (action->isSeparator()) {
+            if (previousISeparatorItem) {
+                continue;
+            }
+
+            menuItem = [NSMenuItem separatorItem];
+
+            previousISeparatorItem = true;
+        } else {
+            menuItem = [[NSMenuItem alloc] init];
+
+            [menuItem setTitle: action->text().toNSString()];
+            [menuItem setTarget: self];
+            [menuItem setAction: @selector(performAction:)];
+
+            previousISeparatorItem = false;
+        }
 
         m_actionMap[itemIndex] = action;
 
-        [menuItem setTitle: action->text().toNSString()];
-        [menuItem setTarget: self];
-        [menuItem setAction: @selector(performAction:)];
         [menuItem setTag: itemIndex++];
 
         [m_nativeMenu addItem:menuItem];

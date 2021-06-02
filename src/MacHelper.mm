@@ -271,13 +271,9 @@ auto Nedrysoft::MacHelper::MacHelper::imageForFile(
 
     return false;
 }
-#include <QDebug>
-#include <QApplication>
 
 auto Nedrysoft::MacHelper::MacHelper::systemFontName() -> QString {
     auto font = [NSFont systemFontOfSize: SystemFontSize];
-
-    qDebug() << qApp->font();
 
     return QString([[font fontName] cStringUsingEncoding:[NSString defaultCStringEncoding]]);
 }
@@ -317,11 +313,10 @@ auto Nedrysoft::MacHelper::MacHelper::disableAppNap(const QString &reason) -> vo
             m_appNapActivity = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiatedAllowingIdleSystemSleep reason:reason.toNSString()];
         }
 
-        if (m_appNapActivity)
+        if (m_appNapActivity) {
             m_appNapCount++;
+        }
     }
-
-    //m_appNapReasons.push(reason);
 }
 
 auto Nedrysoft::MacHelper::MacHelper::enableAppNap() -> void {
